@@ -2,20 +2,23 @@ import 'package:currency_converter/app/models/currency.dart';
 import 'package:flutter/material.dart';
 
 class HomeController {
-  HomeController() {
-    currencies = Currency.currencies;
-    toCurrency = currencies[0];
-    fromCurrency = currencies[0];
-  }
+  HomeController({
+    this.currencies,
+    this.toCurrency,
+    this.fromCurrency,
+    this.toText,
+    this.fromText,
+  });
 
-  TextEditingController toText = TextEditingController();
-  TextEditingController fromText = TextEditingController();
-  List<Currency> currencies;
-  Currency toCurrency;
-  Currency fromCurrency;
+  final TextEditingController toText;
+  final TextEditingController fromText;
+  final List<Currency> currencies;
+  final Currency toCurrency;
+  final Currency fromCurrency;
 
   void covert() {
-    final parsedInputValue = double.tryParse(toText.text) ?? 1;
+    final inputValue = toText.text.replaceAll(',', '.');
+    final parsedInputValue = double.tryParse(inputValue) ?? 1;
 
     final convertionTypes = {
       'Real': () => parsedInputValue * toCurrency.real,
@@ -24,7 +27,7 @@ class HomeController {
       'Bitcoin': () => parsedInputValue * toCurrency.bitcoin,
     };
 
-    final convertedValue = convertionTypes[parsedInputValue]() ?? 0;
+    final convertedValue = convertionTypes[fromCurrency.name]();
 
     fromText.text = convertedValue.toStringAsFixed(2);
   }
