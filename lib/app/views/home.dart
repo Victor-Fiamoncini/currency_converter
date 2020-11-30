@@ -1,7 +1,18 @@
+import 'package:currency_converter/app/controllers/home_controller.dart';
 import 'package:currency_converter/app/widgets/currency_box.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Home extends StatelessWidget {
+  Home() {
+    homeController = HomeController(fromText: fromText, toText: toText);
+  }
+
+  final toText = TextEditingController();
+  final fromText = TextEditingController();
+
+  HomeController homeController;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
