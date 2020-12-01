@@ -1,17 +1,28 @@
 import 'package:currency_converter/app/controllers/home_controller.dart';
+import 'package:currency_converter/app/models/currency.dart';
 import 'package:currency_converter/app/widgets/currency_box.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class Home extends StatelessWidget {
-  Home() {
-    homeController = HomeController(fromText: fromText, toText: toText);
-  }
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
+class _HomeState extends State<Home> {
   final toText = TextEditingController();
   final fromText = TextEditingController();
-
   HomeController homeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    homeController = HomeController(
+      currencies: Currency.currencies,
+      fromText: fromText,
+      toText: toText,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +46,32 @@ class Home extends StatelessWidget {
                 height: 180,
               ),
               const SizedBox(height: 40),
-              CurrencyBox(),
+              CurrencyBox(
+                textEditingController: toText,
+                currencies: homeController.currencies,
+                onChanged: (currency) {
+                  setState(() {
+                    homeController.toCurrency = currency;
+                  });
+                },
+                selectedCurrency: homeController.toCurrency,
+              ),
               const SizedBox(height: 10),
-              CurrencyBox(),
+              CurrencyBox(
+                textEditingController: fromText,
+                currencies: homeController.currencies,
+                onChanged: (currency) {
+                  setState(() {
+                    homeController.fromCurrency = currency;
+                  });
+                },
+                selectedCurrency: homeController.fromCurrency,
+              ),
               const SizedBox(height: 30),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  homeController.covert();
+                },
                 padding: const EdgeInsets.symmetric(
                   vertical: 14,
                   horizontal: 30,

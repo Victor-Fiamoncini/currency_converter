@@ -6,11 +6,13 @@ class CurrencyBox extends StatelessWidget {
     this.currencies,
     this.textEditingController,
     this.onChanged,
+    this.selectedCurrency,
   });
 
   final List<Currency> currencies;
   final TextEditingController textEditingController;
-  final void Function(Currency) onChanged;
+  final void Function(Currency currency) onChanged;
+  final Currency selectedCurrency;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,8 @@ class CurrencyBox extends StatelessWidget {
         Expanded(
           child: SizedBox(
             height: 56,
-            child: DropdownButton<Currency>(
+            child: DropdownButton(
+              value: selectedCurrency,
               isExpanded: true,
               iconEnabledColor: Theme.of(context).primaryColor,
               focusColor: Theme.of(context).primaryColor,
@@ -39,15 +42,16 @@ class CurrencyBox extends StatelessWidget {
                   ),
                 );
               }).toList(),
-              onChanged: (value) {},
+              onChanged: onChanged,
             ),
           ),
         ),
         const SizedBox(width: 10),
-        const Expanded(
+        Expanded(
           flex: 2,
           child: TextField(
-            style: TextStyle(
+            controller: textEditingController,
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),

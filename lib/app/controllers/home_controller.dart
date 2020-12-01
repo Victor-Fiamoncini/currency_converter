@@ -13,8 +13,8 @@ class HomeController {
   final TextEditingController toText;
   final TextEditingController fromText;
   final List<Currency> currencies;
-  final Currency toCurrency;
-  final Currency fromCurrency;
+  Currency toCurrency;
+  Currency fromCurrency;
 
   void covert() {
     final inputValue = toText.text.replaceAll(',', '.');
