@@ -4,7 +4,7 @@ Simple app that converts 5 different currencies, built with MVC pattern. Just fo
 
 ## App Preview
 
-<img src=".github/preview.jpg" alt="Currency Converter Preview" width="200" />
+<img src=".github/preview.jpg" alt="Currency Converter Preview" width="260" />
 
 ----------
 Released in 2020. This project is under the MIT license.
