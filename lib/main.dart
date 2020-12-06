@@ -15,6 +15,7 @@ class App extends StatelessWidget {
         hintColor: Colors.amber[300],
         backgroundColor: Colors.black12,
         brightness: Brightness.dark,
+        textSelectionHandleColor: Colors.amber[300],
         inputDecorationTheme: InputDecorationTheme(
           border: UnderlineInputBorder(
             borderSide: BorderSide(

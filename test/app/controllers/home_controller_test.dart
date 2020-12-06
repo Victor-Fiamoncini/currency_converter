@@ -20,7 +20,7 @@ void main() {
 
     homeController.covert();
 
-    expect(fromText.text, '0.36');
+    expect(fromText.text, '0.3600');
   });
 
   test('should convert currency from dolar to real', () {
@@ -36,6 +36,6 @@ void main() {
 
     homeController.covert();
 
-    expect(fromText.text, '5.65');
+    expect(fromText.text, '5.6500');
   });
 }

@@ -17,18 +17,22 @@ class HomeController {
   Currency fromCurrency;
 
   void covert() {
-    final inputValue = toText.text.replaceAll(',', '.');
-    final parsedInputValue = double.tryParse(inputValue) ?? 1;
+    try {
+      final inputValue = toText.text.replaceAll(',', '.');
+      final parsedInputValue = double.tryParse(inputValue);
 
-    final convertionTypes = {
-      'Real': () => parsedInputValue * toCurrency.real,
-      'Dolar': () => parsedInputValue * toCurrency.dolar,
-      'Euro': () => parsedInputValue * toCurrency.euro,
-      'Bitcoin': () => parsedInputValue * toCurrency.bitcoin,
-    };
+      final convertionTypes = {
+        'Real': () => parsedInputValue * toCurrency.real,
+        'Dolar': () => parsedInputValue * toCurrency.dolar,
+        'Euro': () => parsedInputValue * toCurrency.euro,
+        'Bitcoin': () => parsedInputValue * toCurrency.bitcoin,
+      };
 
-    final convertedValue = convertionTypes[fromCurrency.name]();
+      final convertedValue = convertionTypes[fromCurrency.name]();
 
-    fromText.text = convertedValue.toStringAsFixed(2);
+      fromText.text = convertedValue.toStringAsFixed(4);
+    } catch (e) {
+      throw 'Error to convert the selected currencies';
+    }
   }
 }

@@ -11,7 +11,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final toText = TextEditingController();
   final fromText = TextEditingController();
+
   HomeController homeController;
+  TextStyle hintStyle;
 
   @override
   void initState() {
@@ -22,6 +24,16 @@ class _HomeState extends State<Home> {
       fromText: fromText,
       toText: toText,
     );
+
+    hintStyle = const TextStyle(
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  void onConvertButtonPressed() {
+    homeController.covert();
   }
 
   @override
@@ -38,58 +50,61 @@ class _HomeState extends State<Home> {
             right: 60,
             bottom: 20,
           ),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/logo.png',
-                width: 180,
-                height: 180,
-              ),
-              const SizedBox(height: 40),
-              CurrencyBox(
-                textEditingController: toText,
-                currencies: homeController.currencies,
-                onChanged: (currency) {
-                  setState(() {
-                    homeController.toCurrency = currency;
-                  });
-                },
-                selectedCurrency: homeController.toCurrency,
-              ),
-              const SizedBox(height: 10),
-              CurrencyBox(
-                textEditingController: fromText,
-                currencies: homeController.currencies,
-                onChanged: (currency) {
-                  setState(() {
-                    homeController.fromCurrency = currency;
-                  });
-                },
-                selectedCurrency: homeController.fromCurrency,
-              ),
-              const SizedBox(height: 30),
-              FlatButton(
-                onPressed: () {
-                  homeController.covert();
-                },
-                padding: const EdgeInsets.symmetric(
-                  vertical: 14,
-                  horizontal: 30,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/logo.png',
+                  width: 180,
+                  height: 180,
                 ),
-                shape: Border(
-                  bottom: BorderSide(
-                    color: Theme.of(context).primaryColor,
+                const SizedBox(height: 40),
+                CurrencyBox(
+                  textEditingController: toText,
+                  currencies: homeController.currencies,
+                  onChanged: (currency) {
+                    setState(() => homeController.toCurrency = currency);
+                  },
+                  selectedCurrency: homeController.toCurrency,
+                  hint: Text(
+                    'From',
+                    style: hintStyle,
                   ),
+                  readOnly: false,
                 ),
-                child: const Text(
-                  'Coverter',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                const SizedBox(height: 10),
+                CurrencyBox(
+                  textEditingController: fromText,
+                  currencies: homeController.currencies,
+                  onChanged: (currency) {
+                    setState(() => homeController.fromCurrency = currency);
+                  },
+                  selectedCurrency: homeController.fromCurrency,
+                  hint: Text(
+                    'To',
+                    style: hintStyle,
                   ),
+                  readOnly: true,
                 ),
-              )
-            ],
+                const SizedBox(height: 30),
+                FlatButton(
+                  onPressed: () => onConvertButtonPressed(),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 30,
+                  ),
+                  shape: Border(
+                    bottom: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  child: Text(
+                    'Convert',
+                    style: hintStyle,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

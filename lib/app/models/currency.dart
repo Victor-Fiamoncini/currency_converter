@@ -36,7 +36,7 @@ class Currency {
         dolar: 11351.30,
         euro: 9689.54,
         bitcoin: 1,
-      )
+      ),
     ];
   }
 }

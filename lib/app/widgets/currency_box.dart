@@ -7,12 +7,16 @@ class CurrencyBox extends StatelessWidget {
     this.textEditingController,
     this.onChanged,
     this.selectedCurrency,
+    this.hint,
+    this.readOnly,
   });
 
   final List<Currency> currencies;
   final TextEditingController textEditingController;
   final void Function(Currency currency) onChanged;
   final Currency selectedCurrency;
+  final Text hint;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class CurrencyBox extends StatelessWidget {
             height: 56,
             child: DropdownButton(
               value: selectedCurrency,
+              hint: hint,
               isExpanded: true,
               iconEnabledColor: Theme.of(context).primaryColor,
               focusColor: Theme.of(context).primaryColor,
@@ -51,7 +56,9 @@ class CurrencyBox extends StatelessWidget {
           flex: 2,
           child: TextField(
             controller: textEditingController,
+            readOnly: readOnly,
             style: const TextStyle(
+              color: Colors.white,
               fontWeight: FontWeight.w600,
             ),
           ),
